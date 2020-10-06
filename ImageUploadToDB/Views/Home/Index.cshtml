@@ -1,0 +1,38 @@
+﻿@*@model List<ImageUploadToDB.ViewModels.DisplayProductViewModel>*@
+
+@model List<ImageUploadToDB.Models.Product>
+
+@{
+    ViewBag.Title = "Home Page";
+}
+
+
+
+<div class="text-center">
+    <h1 class="display-4">Welcome to My Bakery</h1>
+    <div class="border border-primary p-1">
+        <div class="row">
+            @foreach (var product in Model)
+            {
+
+                <div class="card m-3" style="min-width: 18rem; max-width:30.5%;">
+                    <div class="card-header">
+                        <h3>@product.Name</h3>
+                    </div>
+                    @if (product.ProductImage != null)
+                    {
+                        var img = Convert.ToBase64String(product.ProductImage);
+                        var imgSrc = string.Format("data:image/jpg;base64,{0}", img);
+                        <img class="card-img-top imageThumbnail" src="@imgSrc" style="max-width:200px" />
+                    }
+
+                    <p class="text-left m-2">@product.Description</p>
+                    <div class="m-2">
+                        <p class="float-left">@string.Format("{0:C}", product.Price)</p>
+                        <a class="btn btn-sm btn-danger text-white float-right">Order Now</a>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
